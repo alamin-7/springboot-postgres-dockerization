@@ -1,0 +1,42 @@
+version: '3.1'
+services:
+  API:
+    image: 'dockerspringboot-0.0.1-snapshot.jar'
+    networks:
+      - spring-postgresql
+    ports:
+      - "8080:8080"
+    depends_on:
+      PostgreSQL:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/test
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  PostgreSQL:
+    image: postgres
+    networks:
+      - spring-postgresql
+    ports:
+      - "5435:5435"
+    volumes:
+      -  pgdata:/var/lib/postgresql/data 
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+volumes:
+  pgdata:
+
+networks:
+  spring-postgresql:
+         driver: bridge
+     
