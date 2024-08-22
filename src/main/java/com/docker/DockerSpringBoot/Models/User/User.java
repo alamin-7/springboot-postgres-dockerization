@@ -1,12 +1,16 @@
 package com.docker.DockerSpringBoot.Models.User;
 
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.Date;
 
 import java.util.Date;
 @Entity
-@Table(name = "test_docker")
+@Table(name = "users")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
 
     @Id

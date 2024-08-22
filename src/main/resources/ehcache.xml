@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd">
+
+    <cache alias="myEntityCache">
+        <key-type>java.lang.Long</key-type> <!-- The type of the key -->
+        <value-type>com.docker.DockerSpringBoot.Models.User</value-type> <!-- The type of the value -->
+
+        <!-- In-memory heap storage settings -->
+        <resources>
+            <heap unit="entries">100</heap> <!-- The number of entries to store in the heap -->
+            <offheap unit="MB">10</offheap> <!-- Optional: Offheap storage -->
+            <disk unit="MB" persistent="true">50</disk> <!-- Optional: Disk storage -->
+        </resources>
+
+        <!-- Expiry settings -->
+   <!--     <expiry>
+            <ttl unit="seconds">600</ttl> &lt;!&ndash; Time to live &ndash;&gt;
+        </expiry>-->
+
+        <!-- Optional: Configure serialization -->
+       <!-- <disk-persistence path="/path/to/store/persistent/cache" synchronous-writes="false" />-->
+    </cache>
+</config>
